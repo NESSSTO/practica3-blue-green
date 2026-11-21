@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><title>NestoTech Store v2.0</title>
+<style>
+  body{font-family:system-ui,sans-serif;margin:0;background:#ecfdf5;color:#064e3b}
+  header{background:#065f46;color:#fff;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+  .badge{background:#10b981;color:#022c22;padding:5px 12px;border-radius:20px;font-size:13px;font-weight:bold}
+  .promo{background:#d1fae5;border:1px solid #10b981;padding:10px;border-radius:8px;margin-bottom:18px;text-align:center}
+  .container{max-width:850px;margin:28px auto;padding:0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .card{background:#fff;padding:18px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+  button{background:#059669;color:#fff;border:none;padding:9px 14px;border-radius:6px;cursor:pointer;width:100%;font-weight:600}
+  .cart{background:#fff;margin-top:24px;padding:18px;border-radius:10px;border-left:5px solid #059669}
+</style>
+</head>
+<body>
+<header>
+  <div><strong>NestoTech Store</strong> — Nueva Temporada</div>
+  <span class="badge">AMBIENTE GREEN | v2.0.0 (Promoción)</span>
+</header>
+<div class="container">
+  <div class="promo">NUEVA FUNCIÓN v2.0: Usa el código <strong>NESTO20</strong> para obtener 20% de descuento.</div>
+  <h2>Catálogo Ampliado v2.0</h2>
+  <div class="grid">
+    <div class="card"><h3>Teclado Mecánico</h3><p>$1,200 MXN</p><button onclick="add('Teclado Mecánico',1200)">Agregar</button></div>
+    <div class="card"><h3>Mouse Inalámbrico</h3><p>$650 MXN</p><button onclick="add('Mouse Inalámbrico',650)">Agregar</button></div>
+    <div class="card"><h3>Audífonos Studio</h3><p>$1,850 MXN</p><button onclick="add('Audífonos Studio',1850)">Agregar</button></div>
+    <div class="card"><h3>Monitor 27" 144Hz</h3><p>$4,500 MXN</p><button onclick="add('Monitor 27 144Hz',4500)">Agregar</button></div>
+  </div>
+  <div class="cart">
+    <h3>Carrito v2.0 (<span id="count">0</span> artículos)</h3>
+    <ul id="items"></ul>
+    <input id="code" placeholder="Código: NESTO20" style="padding:7px;border:1px solid #ccc;border-radius:5px">
+    <button onclick="applyPromo()" style="width:auto;margin-left:6px">Aplicar Cupón</button>
+    <p><strong>Total a pagar: $<span id="total">0</span> MXN</strong></p>
+  </div>
+</div>
+<script>
+  let total=0, count=0, discount=1;
+  function render(){ document.getElementById('total').innerText=(total*discount).toFixed(2); }
+  function add(n,p){
+    count++; total+=p;
+    document.getElementById('count').innerText=count;
+    const li=document.createElement('li'); li.textContent=`${n} - $${p} MXN`;
+    document.getElementById('items').appendChild(li); render();
+  }
+  function applyPromo(){
+    if(document.getElementById('code').value.trim().toUpperCase()==='NESTO20'){ discount=0.8; render(); alert('Cupón 20% aplicado'); }
+  }
+</script>
+</body>
+</html>
